@@ -30,4 +30,4 @@ app.use(shopRoutes);
 //handle 404 page
 app.use(errorsController.get404Page);
 
-app.listen(3002);
+app.listen(3003);

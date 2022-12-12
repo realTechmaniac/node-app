@@ -2,15 +2,12 @@ const Product = require('../models/product');
 
 //GET ADD PRODUCTS
 exports.getAddProduct = (req, res, next) => {
-    res.render("admin/add-product", {
-        pageTitle: 'Add Product',
-        path:'/add-product', 
-        formCSS:true,
-        activeProduct:true,
-        productCSS: true
+    res.render("admin/edit-product", {
+        pageTitle: 'Edit Product',
+        path:'/admin/add-product',
+        editing:false
     });
 }
-
 
 //POST ADD PRODUCTS
 exports.postAddProduct = (req, res, next) => {
@@ -18,7 +15,7 @@ exports.postAddProduct = (req, res, next) => {
     const imageUrl    = req.body.imageUrl;
     const description = req.body.description;
     const price       = req.body.price;
-    const product     = new Product(title, imageUrl, description, price);
+    const product     = new Product(null, title, imageUrl, description, price);
     product.save();
     res.render('admin/add-product', {
         pageTitle: 'Add Product', 
@@ -27,6 +24,26 @@ exports.postAddProduct = (req, res, next) => {
         activeProduct:true,
         productCSS: true
     });
+}
+
+//EDIT PRODUCT
+exports.getEditProduct = (req, res, next) => {
+    const editMode = req.query.edit;
+    if(!editMode){
+        res.redirect('/');
+    }
+    const prodId = req.params.productId;
+    Product.findById(prodId, (product) => {
+        if(!product){
+            return res.redirect('/');
+        }
+        res.render("admin/edit-product", {
+            pageTitle: 'Edit Product',
+            path:'/admin/edit-product',
+            editing:editMode,
+            product:product
+        });
+    })
 }
 
 //GET ADMIN PRODUCTS
@@ -38,4 +55,23 @@ exports.getProducts = (req, res, next) => {
         path: '/admin/products', 
         });
     });
+}
+
+//POST EDIT PRODUCT
+
+exports.postEditProduct = (req, res, next) => {
+  const prodId          = req.body.productId;
+  const updatedTitle    = req.body.title;
+  const updatedImageUrl = req.body.imageUrl;
+  const updatedPrice    = req.body.price;
+  const updatedDescription = req.body.description;
+  const updatedproduct = new Product(prodId, updatedTitle, updatedImageUrl, updatedDescription, updatedPrice);
+  updatedproduct.save();
+  res.redirect('/admin/products');
+}
+
+//DELETE PRODUCT
+
+exports.deleteProduct = (req, res, next) => {
+    
 }
