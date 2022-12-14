@@ -83,3 +83,14 @@ exports.getOrders = (req, res, next) => {
         pageTitle:"Your Orders"
     })
 }
+
+//DELETE CART ITEM
+
+exports.postCartDeleteProduct = (req, res, next) => {
+   const prodId = req.body.productId;
+   console.log(prodId);
+   Product.findById(prodId, product => {
+        Cart.deleteProduct(prodId, product.price);
+        res.redirect('/cart');
+   });
+}
