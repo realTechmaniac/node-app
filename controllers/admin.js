@@ -1,4 +1,4 @@
-const Product = require('../models/product');
+const Product = require('../models/_product');
 
 //GET ADD PRODUCTS
 exports.getAddProduct = (req, res, next) => {
