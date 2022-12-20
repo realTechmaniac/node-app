@@ -4,7 +4,7 @@ const adminRoutes      = require('./Routes/admin');
 const shopRoutes       = require('./Routes/shop');
 const path             = require('path');
 const errorsController = require('./controllers/error');
-const mongoConnect     = require('./utils/database');
+const mongoConnect     = require('./utils/database').mongoConnect;
 
 //import express::
 const express = require('express');
@@ -23,7 +23,7 @@ app.use(BodyParser.urlencoded({extended:false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //Bring in the admin routes::
-// app.use('/admin', adminRoutes);
+app.use('/admin', adminRoutes);
 
 // //Bring in the shop Routes
 // app.use(shopRoutes);

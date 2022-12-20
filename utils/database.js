@@ -5,7 +5,7 @@ let _db;
 
 const mongoConnect = (callback) => {
   MongoClient.connect(
-    "mongodb+srv://danny:daniel001@cluster0.uhjgwui.mongodb.net/?shopretryWrites=true&w=majority"
+    "mongodb+srv://danny:daniel001@cluster0.uhjgwui.mongodb.net/shop?retryWrites=true&w=majority"
   )
     .then((client) => {
       console.log("connection successful");
@@ -23,7 +23,7 @@ const getDb = () => {
   if(_db){
     return _db;
   }
-
+  
   throw 'No database found!'
 }
 

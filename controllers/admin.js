@@ -1,4 +1,4 @@
-const Product = require('../models/_product');
+const Product = require('../models/product');
 
 //GET ADD PRODUCTS
 exports.getAddProduct = (req, res, next) => {
@@ -15,9 +15,13 @@ exports.postAddProduct = (req, res, next) => {
     const imageUrl    = req.body.imageUrl;
     const description = req.body.description;
     const price       = req.body.price;
-    const product     = new Product(null, title, imageUrl, description, price);
-    product.save();
-    res.redirect('/');
+    const product     = new Product(title,price,description, imageUrl);
+    product.save().then((result) => {
+        console.log('Created product')
+        res.redirect('/admin/products')
+    }).catch((error) => {
+        console.log(error);
+    });
 }
 
 //EDIT PRODUCT

@@ -10,6 +10,19 @@ class Product{
 
     save(){
         const db = getDb();
-        db.collection('products');
+        return db.collection('products').insertOne(this).then((result) => {
+            console.log(result);
+        }).catch((error) => console.log(error));
+    }
+
+    static fetchAll(){
+        const db = getDb();
+        return db.products.find().toArray().then((products) => {
+            console.log(products);
+        }).then((error) => {
+            console.log(error);
+        });
     }
 }   
+
+module.exports = Product;
