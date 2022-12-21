@@ -20,7 +20,7 @@
                 <label for="title">Price</label>
                 <input type="number" name="price" id="price" step = "0.01" value="<% if(editing) {%><%= product.price %><% } %>">
             </div>
-            <% if(editing) {%> <input type = "hidden" name = "productId" value="<%= product.id %>" /> <% } %>
+            <% if(editing) {%> <input type = "hidden" name = "productId" value="<%= product._id %>" /> <% } %>
             <div class="form-control">
                 <label for="description">Description</label>
                 <textarea name = "description" id = "description" rows = "5"><% if(editing) {%><%= product.description %><% } %></textarea>
