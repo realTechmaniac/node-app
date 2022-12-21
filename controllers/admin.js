@@ -46,14 +46,17 @@ exports.getEditProduct = (req, res, next) => {
 
 //GET ADMIN PRODUCTS
 exports.getProducts = (req, res, next) => {
-    Product.fetchAll((products) => {
-    res.render('admin/products', {
-        prods:products,
-        pageTitle : 'Admin Products',
-        path: '/admin/products', 
+    Product.fetchAll()
+    .then((products) => {
+        res.render('admin/products', {
+            prods:products,
+            pageTitle : 'Admin Products',
+            path: '/admin/products', 
         });
-    });
-}
+    }).catch((error) => {
+        console.log(error)
+    })
+   }
 
 //POST EDIT PRODUCT
 

@@ -26,11 +26,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/admin', adminRoutes);
 
 // //Bring in the shop Routes
-// app.use(shopRoutes);
+app.use(shopRoutes);
 
 // //handle 404 page
-// app.use(errorsController.get404Page);
+app.use(errorsController.get404Page);
 
 mongoConnect(() => {
-    app.listen(3003);
+    app.listen(3006);
 })
