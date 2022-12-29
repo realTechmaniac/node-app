@@ -53,6 +53,24 @@ class User {
         console.log(err);
       });
   }
+
+  getCart(){
+     const db = getDb();
+     const productIds = this.cart.items.map((item) => {
+        return item.productId;
+     });
+     return db.collection("products")
+        .find({_id: {$in: productIds}})
+        .toArray()
+        .then((products) => {
+            return products.map((product) => {
+               return {...product, quantity: this.cart.items.find((i) => {
+                   return product.productId.toString() == i._id.toString()
+               }).quantity }
+            })
+        })
+        .catch((err) => console.log(err));
+  }
 }
 
 module.exports = User;

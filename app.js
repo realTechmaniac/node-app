@@ -35,10 +35,10 @@ app.use((req, res, next) => {
 //Bring in the admin routes::
 app.use('/admin', adminRoutes);
 
-// //Bring in the shop Routes
+//Bring in the shop Routes
 app.use(shopRoutes);
 
-// //handle 404 page
+//handle 404 page
 app.use(errorsController.get404Page);
 
 mongoConnect(() => {

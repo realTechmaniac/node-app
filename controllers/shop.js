@@ -46,22 +46,15 @@ exports.getIndex = (req, res, next) => {
 
 //CART
 exports.getCart = (req, res, next) => {
-  Cart.getCart((cart) => {
-    Product.fetchAll((products) => {
-      const cartProducts = [];
-      for (product of products) {
-        const cartData = cart.products.find((prod) => prod.id === product.id);
-        if (cartData) {
-          cartProducts.push({ productData: product, qty: cartData.qty });
-        }
-      }
+  req.user.getCart()
+    .then((products) => {
+      console.log(products);
       res.render("shop/cart", {
         path: "/cart",
         pageTitle: "Your Cart",
-        products: cartProducts,
+        products: products,
       });
-    });
-  });
+    }).catch((err) => console.log(err))
 };
 
 
