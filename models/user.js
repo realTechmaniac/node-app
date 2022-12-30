@@ -46,7 +46,6 @@ class User {
       .collection("users")
       .findOne({ _id: new mongoDb.ObjectId(userId) })
       .then((user) => {
-        console.log(user);
         return user;
       })
       .catch((err) => {
