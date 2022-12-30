@@ -63,13 +63,15 @@ class User {
         .find({_id: {$in: productIds}})
         .toArray()
         .then((products) => {
-            return products.map((product) => {
-               return {...product, quantity: this.cart.items.find((i) => {
-                   return product.productId.toString() == i._id.toString()
-               }).quantity }
+            return products.map(p => {
+              return {
+                ...p,
+                quantity: this.cart.items.find(i => {
+                   return i.productId.toString() === p._id.toString()
+                }).quantity
+              };
             })
-        })
-        .catch((err) => console.log(err));
+        }).catch((err) => console.log(err))
   }
 }
 
