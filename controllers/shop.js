@@ -62,9 +62,12 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
   Product.findById(prodId).then((product) => {
-     req.user.addToCart(product)
+     return req.user.addToCart(product)
+  }).then((result) => {
+     console.log(result);
      res.redirect('/cart');
-  }).catch((error) => {
+  })
+  .catch((error) => {
     console.log(error);
   });
 };
@@ -88,9 +91,12 @@ exports.getOrders = (req, res, next) => {
 //DELETE CART ITEM
 exports.postCartDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  console.log(prodId);
-  Product.findById(prodId, (product) => {
-    Cart.deleteProduct(prodId, product.price);
-    res.redirect("/cart");
-  });
+  req.user.deleteItemFromCart(prodId)
+    .then((result) => {
+      console.log(result)
+       res.redirect('/cart')
+    }).catch((err) => {
+      console.log(err)
+    })
 };
+

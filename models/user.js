@@ -72,6 +72,15 @@ class User {
             })
         }).catch((err) => console.log(err))
   }
+
+  deleteItemFromCart(productId){
+      const updatedCartItems = this.cart.items.filter((item) => item.productId.toString() !== productId.toString());
+      const db = getDb();
+      return db.collection('users').updateOne(
+        { _id: new mongoDb.ObjectId(this._id)},
+        { $set: { cart : {items : updatedCartItems}} }
+      );
+  }
 }
 
 module.exports = User;
